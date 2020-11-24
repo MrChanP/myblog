@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <!--定义配置文件用到的变量-->
+    <property name="log_path" value="/data/app/logs/myblog"/>
+    <property name="file_pattern" value="[%d{yyyy-MM-dd HH:mm:ss}] - %logger{50}: %msg%n"/>
+    <property name="console_pattern" value="%highlight(%5p) - %boldMagenta(%logger) - %cyan(%msg%n)"/>
+
+    <contextName>logback</contextName>
+
+    <!--指定输出策略（在控制台输出或是输出到文件中）-->
+    <!--控制台-->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <!--指定控制台日志输出级别-->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>info</level>
+        </filter>
+
+        <!--编码格式-->
+        <encoder>
+            <pattern>${console_pattern}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!--文件-->
+    <appender name="logInfoFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--指定日志文件输出级别-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!--过滤 只保留info级别日志，匹配到就禁止-->
+            <level>info</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+
+        <!--滚动策略，按照时间滚动，每天会生成一个日志文件-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--文件路径,定义了日志的切分方式——把每一天的日志归档到一个文件中-->
+            <fileNamePattern>${log_path}/info/myblog_info-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!--只保留最近30天的日志-->
+            <maxHistory>30</maxHistory>
+            <!--用来指定日志文件的上限大小，那么到了这个值，就会删除旧的日志-->
+            <totalSizeCap>100MB</totalSizeCap>
+        </rollingPolicy>
+
+        <!--追加记录-->
+        <append>true</append>
+
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>${file_pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="logErrorFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>error</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log_path}/error/myblog_error-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>100MB</totalSizeCap>
+        </rollingPolicy>
+        <append>true</append>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>${file_pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <!--可选，用来具体指明包的日志输出级别-->
+    <!--<logger name="per.myblog.controller" level="INFO" additivity="false"/>-->
+
+    <!--把上边的输出策略添加到跟节点，名称要保证和上边一致，否则报错 ，并指明输出级别为INFO-->
+    <root level="info">
+        <appender-ref ref="console"/>
+        <appender-ref ref="logInfoFile"/>
+        <appender-ref ref="logErrorFile"/>
+    </root>
+</configuration>
