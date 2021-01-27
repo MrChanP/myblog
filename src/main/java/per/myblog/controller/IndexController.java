@@ -10,6 +10,7 @@ import per.myblog.utils.AjaxResult;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
+@RequestMapping(value = "/index")
 public class IndexController {
 
     @Autowired
@@ -53,7 +54,7 @@ public class IndexController {
     }
 
     @RequestMapping(value = "/test")
-    public String test(HttpServletRequest request, @RequestBody String userName){
+    public String test(HttpServletRequest request){
 //        emailUtils.send("chanpwork@163.com", "00000");
         return "hello world!-----" + request.getParameter("userName");
     }
