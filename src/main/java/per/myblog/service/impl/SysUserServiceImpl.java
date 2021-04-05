@@ -80,8 +80,8 @@ public class SysUserServiceImpl implements SysUserService {
                     inStream.close();
                     //把outStream里的数据写入内存
                     byte[] data = outStream.toByteArray();
-                    String uploadPath = "/data/images/headImg/" + UUID.randomUUID().toString() + getEndFileName(fileName);
-//                    String uploadPath = "D:/data/" + UUID.randomUUID().toString() + getEndFileName(fileName);
+//                    String uploadPath = "/data/images/headImg/" + UUID.randomUUID().toString() + getEndFileName(fileName);
+                    String uploadPath = "E:/project/myblog/images/headImg/" + UUID.randomUUID().toString() + getEndFileName(fileName);
                     log.info("头像path==" + uploadPath);
 
                     File imageFile = new File(uploadPath);
@@ -94,7 +94,8 @@ public class SysUserServiceImpl implements SysUserService {
 
 
                     // 更新数据库用户头像地址
-                    String saveUrl = uploadPath.replace("/data/images/headImg/", "http://47.116.65.132/headImg/");
+//                    String saveUrl = uploadPath.replace("/data/images/headImg/", "");
+                    String saveUrl = uploadPath.replace("E:/project/myblog/images/headImg/", "");
                     sysUserRepository.updateHeadUrl(wxTokenId, saveUrl);
 
                     result.successData(saveUrl);
