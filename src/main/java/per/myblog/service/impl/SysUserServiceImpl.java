@@ -15,6 +15,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -33,7 +34,10 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public AjaxResult findUserByWxTokenId(String wxTokenId) {
         AjaxResult result = new AjaxResult();
-        SysUser sysUser = sysUserRepository.findUserByWxTokenId(wxTokenId);
+//        SysUser sysUser = sysUserRepository.findUserByWxTokenId(wxTokenId);
+        SysUser sysUser = new SysUser();
+        sysUser.setWxTokenId(Long.parseLong(wxTokenId));
+        SysUser one = sysUserRepository.findOne(sysUser).get();
         if (sysUser != null && sysUser.getLoginState() == 1) {
             return result.successData(sysUser);
         } else {
