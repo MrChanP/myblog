@@ -65,7 +65,6 @@
 //// the salt, the IV, the human-friendly passphrase, all the algorithms and parameters to those algorithms.
 //// Peter van der Linden, April 15 2012
 //
-//import com.winsafe.commons.lang.DateUtil;
 //
 //import javax.crypto.Cipher;
 //import javax.crypto.SecretKey;
