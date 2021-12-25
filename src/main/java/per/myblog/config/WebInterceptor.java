@@ -20,6 +20,7 @@ public class WebInterceptor implements HandlerInterceptor {
      * @throws Exception
      */
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        log.info("------------------URL:" + request.getRequestURI() + "--------------------");
         return true;
     }
 }

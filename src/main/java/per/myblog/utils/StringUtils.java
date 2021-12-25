@@ -45,4 +45,12 @@ public class StringUtils {
             return null;
         }
     }
+
+    public static boolean isEmpty(Object obj) {
+        if (obj == null) {
+            return true;
+        }
+        String value = String.valueOf(obj);
+        return value.length() == 0 || "null".equals(value);
+    }
 }

@@ -18,4 +18,5 @@ public interface SysUserService {
     AjaxResult sendCode(HttpServletRequest request);
 
     AjaxResult signUp(HttpServletRequest request);
+
 }
