@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
     <!--定义配置文件用到的变量-->
-    <property name="log_path" value="/data/app/logs/myblog"/>
+<!--    <property name="log_path" value="/data/app/logs/myblog"/>-->
+    <property name="log_path" value="E:\myspace\logs"/>
     <property name="file_pattern" value="[%d{yyyy-MM-dd HH:mm:ss}] - %logger{50}: %msg%n"/>
     <property name="console_pattern" value="%highlight(%5p) - %boldMagenta(%logger) - %cyan(%msg%n)"/>
 

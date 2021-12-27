@@ -1,7 +1,6 @@
 package per.myblog.service.impl;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import per.myblog.entity.Users;
@@ -11,9 +10,11 @@ import per.myblog.utils.AjaxResult;
 import per.myblog.utils.Sha1Util;
 
 @Service
+@Slf4j
 public class UsersServiceImpl implements UsersService {
-    private static final Logger log = LoggerFactory.getLogger(SysUserServiceImpl.class);
+
     private static final AjaxResult result = new AjaxResult();
+
     @Autowired
     UserRepository userRepository;
 
@@ -25,7 +26,7 @@ public class UsersServiceImpl implements UsersService {
             if (!users.getPassword().equals(sha_password)) {
                 return result.failMsg("密码错误");
             }
-            return result.successData("");
+            return result.successData(users);
         } else {
             return result.failMsg("用户不存在");
         }

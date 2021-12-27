@@ -1,6 +1,10 @@
 package per.myblog.utils;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * ajax请求返回工具类
@@ -51,5 +55,14 @@ public class AjaxResult {
         this.msg = msg;
         this.data = null;
         return this;
+    }
+
+    public String toJsonString() throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, Object> map = new HashMap<>();
+        map.put("code", this.code);
+        map.put("msg", this.msg);
+        map.put("data", this.data);
+        return objectMapper.writeValueAsString(map);
     }
 }
